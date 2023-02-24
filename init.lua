@@ -6,9 +6,13 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
   vim.cmd [[packadd packer.nvim]]
 end
+print(install_path)
+-- Remap leader and local leader to <Space>
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-require("mapping")
-require("options")
+--require("options")
 
 require('packer').startup(function(use)
   -- Package manager
@@ -35,6 +39,13 @@ require('packer').startup(function(use)
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
+  -- WhichKey
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("config.whichkey").setup()
+   end,
+}
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -47,6 +58,10 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
+  -- Plugin for copy to clipboard of system
+  use {'ojroques/nvim-osc52'}
+
+  use('mbbill/undotree')
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
@@ -107,10 +122,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-require("md.lualine")
-require("md.indent-blankline")
-require("md.toggleterm")
-require("md.gitsigns")
+require("config.lualine")
+require("config.indent-blankline")
+require("config.toggleterm")
+require("config.gitsigns")
 
 -- Enable Comment.nvim
 require('Comment').setup()
@@ -271,6 +286,7 @@ local servers = {
   -- gopls = {},
   pyright = {},
   rust_analyzer = {},
+  bashls = {},
   -- tsserver = {},
 
   sumneko_lua = {
