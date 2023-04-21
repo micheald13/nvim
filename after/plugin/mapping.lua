@@ -42,6 +42,9 @@ map("x", "J", ":move '>+1<CR>gv-gv", default_options)
 -- undo tree
 map('n', '<leader>u', vim.cmd.UndotreeToggle)
 
+-- Lazygit
+map('n', '<leader>gg', "<cmd>:LazyGit<CR>", default_options)
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
