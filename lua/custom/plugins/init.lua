@@ -4,7 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
   {"kdheepak/lazygit.nvim"},
-  {'akinsho/bufferline.nvim', version = "v3.*", dependencies = 'nvim-tree/nvim-web-devicons'},
   {'mbbill/undotree'},
-  {'ojroques/nvim-osc52'}
+  {'ojroques/nvim-osc52'},
 }
